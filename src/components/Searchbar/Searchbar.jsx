@@ -1,4 +1,11 @@
-import { Formik, Form, Field } from 'formik';
+import { Formik } from 'formik';
+import {
+  HeaderSearchbar,
+  Input,
+  SearchForm,
+  SearchFormBtn,
+} from './Searchbar.styled';
+import { BsSearch } from 'react-icons/bs';
 
 export const Searchbar = ({ onSubmit }) => {
   const handleSubmit = (values, { resetForm }) => {
@@ -7,13 +14,21 @@ export const Searchbar = ({ onSubmit }) => {
     onSubmit(query);
   };
   return (
-    <header>
+    <HeaderSearchbar>
       <Formik initialValues={{ query: '' }} onSubmit={handleSubmit}>
-        <Form>
-          <Field id="search" type="text" name="query" />
-          <button type="submit">submit</button>
-        </Form>
+        <SearchForm>
+          <Input
+            id="search"
+            type="text"
+            name="query"
+            autoFocus
+            placeholder="Search images and photos"
+          />
+          <SearchFormBtn type="submit">
+            <BsSearch />
+          </SearchFormBtn>
+        </SearchForm>
       </Formik>
-    </header>
+    </HeaderSearchbar>
   );
 };

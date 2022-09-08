@@ -16,7 +16,9 @@ export class App extends Component {
     return (
       <>
         <Searchbar onSubmit={this.onSubmit} />
-        <ImageGallery onFetch={query} />
+        <main>
+          <ImageGallery searchQuery={query} />
+        </main>
       </>
     );
   }
