@@ -1,4 +1,5 @@
 import { Button } from 'components/Button/Button';
+import { Loader } from 'components/Loader/Loader';
 import { Component } from 'react';
 import { fetchPhotos } from 'services/ImagesAPI';
 import { Gallery } from './ImageGallery.styled';
@@ -6,8 +7,9 @@ import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 
 export class ImageGallery extends Component {
   state = {
-    images: [],
+    images: null,
     page: 2,
+    isLoading: false,
   };
 
   componentDidUpdate(prevProps, _) {
@@ -15,35 +17,41 @@ export class ImageGallery extends Component {
       prevProps.searchQuery !== this.props.searchQuery &&
       this.props.searchQuery !== ''
     ) {
+      this.setState({ isLoading: true });
       fetchPhotos(this.props.searchQuery).then(response =>
-        this.setState({ images: [...response.hits] })
+        this.setState({ images: [...response.hits], isLoading: false })
       );
     }
   }
+
   loadMore = () => {
     this.setState(prevState => ({
       page: prevState.page + 1,
     }));
+
+    this.setState({ isLoading: true });
+
     fetchPhotos(this.props.searchQuery, this.state.page).then(response =>
       this.setState(prevState => ({
         images: [...prevState.images, ...response.hits],
+        isLoading: false,
       }))
     );
   };
 
   render() {
-    const { images } = this.state;
-    const { searchQuery } = this.props;
+    const { images, isLoading } = this.state;
     return (
       <>
-        <Gallery>
-          {images.map(item => {
-            return <ImageGalleryItem key={item.id} item={item} />;
-          })}
-        </Gallery>
-        {searchQuery !== '' && (
-          <Button children={'Load more'} onClick={this.loadMore} />
+        {isLoading && <Loader />}
+        {images && (
+          <Gallery>
+            {images.map(item => {
+              return <ImageGalleryItem key={item.id} item={item} />;
+            })}
+          </Gallery>
         )}
+        {images && <Button children={'Load more'} onClick={this.loadMore} />}
       </>
     );
   }

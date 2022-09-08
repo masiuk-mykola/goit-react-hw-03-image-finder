@@ -16,7 +16,7 @@ export class App extends Component {
     return (
       <>
         <Searchbar onSubmit={this.onSubmit} />
-        <main>
+        <main style={{ textAlign: 'center', paddingBottom: '20px' }}>
           <ImageGallery searchQuery={query} />
         </main>
       </>

@@ -13,6 +13,7 @@ export const Searchbar = ({ onSubmit }) => {
     resetForm();
     onSubmit(query);
   };
+
   return (
     <HeaderSearchbar>
       <Formik initialValues={{ query: '' }} onSubmit={handleSubmit}>
