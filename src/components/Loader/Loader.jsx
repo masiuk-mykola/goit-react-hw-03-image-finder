@@ -9,7 +9,7 @@ export const Loader = () => {
       ariaLabel="grid-loading"
       radius="12.5"
       wrapperStyle={{
-        position: 'absolute',
+        position: 'fixed',
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',

@@ -4,6 +4,7 @@ import { Component } from 'react';
 import { fetchPhotos } from 'services/ImagesAPI';
 import { Gallery } from './ImageGallery.styled';
 import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
+import { Notify } from 'notiflix';
 
 export class ImageGallery extends Component {
   state = {
@@ -18,9 +19,14 @@ export class ImageGallery extends Component {
       this.props.searchQuery !== ''
     ) {
       this.setState({ isLoading: true });
-      fetchPhotos(this.props.searchQuery).then(response =>
-        this.setState({ images: [...response.hits], isLoading: false })
-      );
+      fetchPhotos(this.props.searchQuery).then(response => {
+        if (response.hits.length === 0) {
+          Notify.failure('Wrong request');
+          this.setState({ isLoading: false });
+        } else {
+          this.setState({ images: [...response.hits], isLoading: false });
+        }
+      });
     }
   }
 
