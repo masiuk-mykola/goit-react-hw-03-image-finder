@@ -1,6 +1,8 @@
 import { Modal } from 'components/Modal/Modal';
 import { Component } from 'react';
 import { Img, Item } from './ImageGalleryItem.styled';
+import { Loader } from 'components/Loader/Loader';
+import PropTypes from 'prop-types';
 
 export class ImageGalleryItem extends Component {
   state = {
@@ -32,7 +34,12 @@ export class ImageGalleryItem extends Component {
             <img src={item.largeImageURL} alt={item.tags} />
           </Modal>
         )}
+        {showModal && <Loader />}
       </>
     );
   }
 }
+
+ImageGalleryItem.propTypes = {
+  item: PropTypes.object,
+};

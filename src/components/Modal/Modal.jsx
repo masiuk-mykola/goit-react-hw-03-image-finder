@@ -1,10 +1,10 @@
 import { Overlay, ModalWindow } from './Modal.styled';
 import { createPortal } from 'react-dom';
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 
 const modalRoot = document.querySelector('#modal-root');
 
-// ({ children, onCloseModal });
 export class Modal extends Component {
   componentDidMount() {
     window.addEventListener('keydown', e => {
@@ -29,26 +29,7 @@ export class Modal extends Component {
   }
 }
 
-// export const Modal = ({ children, onCloseModal }) => {
-
-//   componentDidMount() {
-//     window.addEventListener('keydown', e=>{
-//       if(e.code === 'Ecape'){
-//       onCloseModal();
-
-//       }
-//     })
-//    }
-
-//   const closeModal = e => {
-//     if (e.target.nodeName === 'DIV') {
-//       onCloseModal();
-//     }
-//   };
-//   return createPortal(
-//     <Overlay onClick={closeModal}>
-//       <ModalWindow>{children}</ModalWindow>
-//     </Overlay>,
-//     modalRoot
-//   );
-// };
+Modal.protoTypes = {
+  onCloseModal: PropTypes.func,
+  children: PropTypes.object,
+};

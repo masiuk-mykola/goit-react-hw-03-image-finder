@@ -5,6 +5,7 @@ import { fetchPhotos } from 'services/ImagesAPI';
 import { Gallery } from './ImageGallery.styled';
 import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 import { Notify } from 'notiflix';
+import PropTypes from 'prop-types';
 
 export class ImageGallery extends Component {
   state = {
@@ -62,3 +63,7 @@ export class ImageGallery extends Component {
     );
   }
 }
+
+ImageGallery.propTypes = {
+  searchQuery: PropTypes.string,
+};
